@@ -22,9 +22,9 @@
     "viewer_person": [
         2
     ],
-    "driver_path": "C:\\Users\\19209\\Documents\\GitHub\\damaihelper\\chromedriver.exe",
+    "driver_path": "/Users/zhenyu/Desktop/self/damaihelper/chromedriver",
     "damai_url": "https://www.damai.cn/",
-    "target_url": "https://m.damai.cn/damai/detail/item.html?itemId=714001339730",
+    "target_url": "https://m.damai.cn/damai/detail/item.html?itemId=777892129512",
     "comment": {
         "title": "comment 下的所有内容为自定义注释,无实际含义",
         "date": "1",

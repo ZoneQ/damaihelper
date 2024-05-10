@@ -13,7 +13,8 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 class Concert(object):
-    def __init__(self, date, session, price, real_name, nick_name, ticket_num, viewer_person, damai_url, target_url, driver_path):
+    def __init__(self, date, session, price, real_name, nick_name, ticket_num, viewer_person, damai_url, target_url,
+                 driver_path):
         self.date = date  # 日期序号
         self.session = session  # 场次序号优先级
         self.price = price  # 票价序号优先级
@@ -79,7 +80,7 @@ class Concert(object):
 
     def enter_concert(self):
         print(u'###打开浏览器，进入大麦网###')
-        if not exists('cookies.pkl'):   # 如果不存在cookie.pkl,就获取一下
+        if not exists('cookies.pkl'):  # 如果不存在cookie.pkl,就获取一下
             self.driver = webdriver.Chrome(executable_path=self.driver_path)
             self.get_cookie()
             print(u'###成功获取Cookie，重启浏览器###')
@@ -87,9 +88,10 @@ class Concert(object):
 
         options = webdriver.ChromeOptions()
         # 禁止图片、js、css加载
-        prefs = {"profile.managed_default_content_settings.images": 2,
-                 "profile.managed_default_content_settings.javascript": 1,
-                 'permissions.default.stylesheet': 2}
+        prefs = {
+            "profile.managed_default_content_settings.images": 2,
+            "profile.managed_default_content_settings.javascript": 1,
+            'permissions.default.stylesheet': 2}
         mobile_emulation = {"deviceName": "Nexus 6"}
         options.add_experimental_option("prefs", prefs)
         options.add_experimental_option("mobileEmulation", mobile_emulation)
@@ -138,8 +140,8 @@ class Concert(object):
 
             # 确认页面刷新成功
             try:
-                box = WebDriverWait(self.driver, 3, 0.1).until(
-                    EC.presence_of_element_located((By.ID, 'app')))
+                box = (WebDriverWait(self.driver, 3, 0.1)
+                       .until(EC.presence_of_element_located((By.ID, 'root'))))
             except:
                 raise Exception(u"***Error: 页面刷新出错***")
 
@@ -184,7 +186,7 @@ class Concert(object):
                     date_list = date.find_elements(
                         by=By.CLASS_NAME, value='bui-calendar-day-box')
                     for i in self.date:
-                        j: WebElement = date_list[i-1]
+                        j: WebElement = date_list[i - 1]
                         toBeClicks.append(j)
                         break
                     for i in toBeClicks:
@@ -193,7 +195,7 @@ class Concert(object):
 
                 # 选定场次
                 session = WebDriverWait(self.driver, 2, 0.1).until(
-                    EC.presence_of_element_located((By.CLASS_NAME, 'sku-times-card')))    # 日期、场次和票档进行定位
+                    EC.presence_of_element_located((By.CLASS_NAME, 'sku-times-card')))  # 日期、场次和票档进行定位
                 session_list = session.find_elements(
                     by=By.CLASS_NAME, value='bui-dm-sku-card-item')
 
@@ -201,9 +203,9 @@ class Concert(object):
                 for i in self.session:  # 根据优先级选择一个可行场次
                     if i > len(session_list):
                         i = len(session_list)
-                    j: WebElement = session_list[i-1]
+                    j: WebElement = session_list[i - 1]
                     # TODO 不确定已满的场次带的是什么Tag
-                    
+
                     k = self.isClassPresent(j, 'item-tag', True)
                     if k:  # 如果找到了带presell的类
                         if k.text == '无票':
@@ -217,7 +219,7 @@ class Concert(object):
                     else:
                         toBeClicks.append(j)
                         break
-                
+
                 # 多场次的场要先选择场次才会出现票档
                 for i in toBeClicks:
                     i.click()
@@ -234,7 +236,7 @@ class Concert(object):
                 for i in self.price:
                     if i > len(price_list):
                         i = len(price_list)
-                    j = price_list[i-1]
+                    j = price_list[i - 1]
                     # k = j.find_element(by=By.CLASS_NAME, value='item-tag')
                     k = self.isClassPresent(j, 'item-tag', True)
                     if k:  # 存在notticket代表存在缺货登记，跳过
@@ -254,10 +256,9 @@ class Concert(object):
                 if buybutton_text == "":
                     raise Exception(u"***Error: 提交票档按钮文字获取为空,适当调整 sleep 时间***")
 
-
                 try:
                     WebDriverWait(self.driver, 2, 0.1).until(
-                    EC.presence_of_element_located((By.CLASS_NAME, 'bui-dm-sku-counter')))
+                        EC.presence_of_element_located((By.CLASS_NAME, 'bui-dm-sku-counter')))
                 except:
                     raise Exception(u"***购票按钮未开始***")
 
@@ -279,7 +280,7 @@ class Concert(object):
                     raise Exception(u"***Error: ticket_num_up 位置找不到***")
 
             if buybutton_text == "立即预订" or buybutton_text == "立即购买" or buybutton_text == '确定':
-                for i in range(self.ticket_num-1):  # 设置增加票数
+                for i in range(self.ticket_num - 1):  # 设置增加票数
                     ticket_num_up.click()
                 buybutton.click()
                 self.status = 4
@@ -302,12 +303,13 @@ class Concert(object):
             for i in self.viewer_person:
                 if i > len(people):
                     break
-                j = people[i-1]
+                j = people[i - 1]
                 j.click()
                 sleep(0.05)
 
             WebDriverWait(self.driver, 5, 0.1).until(
-                EC.presence_of_element_located((By.XPATH, '//*[@id="dmOrderSubmitBlock_DmOrderSubmitBlock"]/div[2]/div/div[2]/div[3]/div[2]')))
+                EC.presence_of_element_located(
+                    (By.XPATH, '//*[@id="dmOrderSubmitBlock_DmOrderSubmitBlock"]/div[2]/div/div[2]/div[3]/div[2]')))
             comfirmBtn = self.driver.find_element(
                 By.XPATH, '//*[@id="dmOrderSubmitBlock_DmOrderSubmitBlock"]/div[2]/div/div[2]/div[3]/div[2]')
             sleep(0.5)
@@ -321,7 +323,7 @@ class Concert(object):
                         EC.title_contains('支付宝'))
                 except:
                     # 通过人工判断是否继续等待支付宝跳转界面
-                    c ="""                                                                                                                      
+                    c = """                                                                                                                      
                                                
 等待输入指示：                                                                                
  1.抢票成功
@@ -354,7 +356,8 @@ if __name__ == '__main__':
             config = loads(f.read())
             # params: 场次优先级，票价优先级，实名者序号, 用户昵称， 购买票数， 官网网址， 目标网址, 浏览器驱动地址
         con = Concert(config['date'], config['sess'], config['price'], config['real_name'], config['nick_name'],
-                      config['ticket_num'], config['viewer_person'], config['damai_url'], config['target_url'], config['driver_path'])
+                      config['ticket_num'], config['viewer_person'], config['damai_url'], config['target_url'],
+                      config['driver_path'])
         con.enter_concert()  # 进入到具体抢购页面
     except Exception as e:
         print(e)
@@ -371,5 +374,5 @@ if __name__ == '__main__':
 
         if con.status == 6:
             print(u"###经过%d轮奋斗，共耗时%.1f秒，抢票成功！请确认订单信息###" %
-                  (con.num, round(con.time_end-con.time_start, 3)))
+                  (con.num, round(con.time_end - con.time_start, 3)))
             break
