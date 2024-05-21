@@ -156,8 +156,9 @@ class Concert(object):
                 raise Exception(u"***Error: 实名制遮罩关闭失败***")
 
             try:
-                buybutton = box.find_element(by=By.CLASS_NAME, value='buy__button')
                 sleep(0.5)
+                buybutton = box.find_element(by=By.CLASS_NAME, value='buy__button')
+                sleep(0.5)  # 0.5
                 buybutton_text: str = buybutton.text
             except Exception as e:
                 raise Exception(f"***Error: buybutton 位置找不到***: {e}")
@@ -307,11 +308,12 @@ class Concert(object):
                 j.click()
                 sleep(0.05)
 
+            # 更加稳健的 XPath 定位方法
             WebDriverWait(self.driver, 5, 0.1).until(
                 EC.presence_of_element_located(
-                    (By.XPATH, '//*[@id="dmOrderSubmitBlock_DmOrderSubmitBlock"]/div[2]/div/div[2]/div[3]/div[2]')))
+                    (By.XPATH, '//*[@id="dmOrderSubmitBlock_DmOrderSubmitBlock"]/div[2]/div/div[2]/div[2]/div[2]')))
             comfirmBtn = self.driver.find_element(
-                By.XPATH, '//*[@id="dmOrderSubmitBlock_DmOrderSubmitBlock"]/div[2]/div/div[2]/div[3]/div[2]')
+                By.XPATH, '//*[@id="dmOrderSubmitBlock_DmOrderSubmitBlock"]/div[2]/div/div[2]/div[2]/div[2]')
             sleep(0.5)
             comfirmBtn.click()
             # 判断title是不是支付宝

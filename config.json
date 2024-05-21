@@ -20,11 +20,11 @@
     "nick_name": "",
     "ticket_num": 1,
     "viewer_person": [
-        2
+        1
     ],
     "driver_path": "/Users/zhenyu/Desktop/self/damaihelper/chromedriver",
     "damai_url": "https://www.damai.cn/",
-    "target_url": "https://m.damai.cn/damai/detail/item.html?itemId=777892129512",
+    "target_url": "https://m.damai.cn/damai/detail/item.html?itemId=796107255909",
     "comment": {
         "title": "comment 下的所有内容为自定义注释,无实际含义",
         "date": "1",
@@ -39,7 +39,8 @@
         "target_url": "购票的实际地址,需要使用手机端的地址,域名: https://m.damai.cn/ 开头",
         "queue": {
             "title": "列入待抢的链接地址",
-            "zhoujielun_0403": "https://m.damai.cn/damai/detail/item.html?itemId=717235298514"
+            "xuSong_0628": "https://m.damai.cn/damai/detail/item.html?itemId=793972109319",
+            "jj_0921": "https://m.damai.cn/damai/detail/item.html?itemId=793972109319"
         }
     }
 }
