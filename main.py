@@ -158,7 +158,7 @@ class Concert(object):
             try:
                 sleep(0.5)
                 buybutton = box.find_element(by=By.CLASS_NAME, value='buy__button')
-                sleep(0.5)  # 0.5
+                sleep(0.1)  # 0.5
                 buybutton_text: str = buybutton.text
             except Exception as e:
                 raise Exception(f"***Error: buybutton 位置找不到***: {e}")
