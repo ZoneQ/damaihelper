@@ -24,7 +24,7 @@
     ],
     "driver_path": "/Users/zhenyu/Desktop/self/damaihelper/chromedriver",
     "damai_url": "https://www.damai.cn/",
-    "target_url": "https://m.damai.cn/damai/detail/item.html?itemId=797029083079",
+    "target_url": "https://m.damai.cn/damai/detail/item.html?utm=&itemId=793972109319",
     "comment": {
         "title": "comment 下的所有内容为自定义注释,无实际含义",
         "date": "1",

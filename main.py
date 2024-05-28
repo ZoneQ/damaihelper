@@ -233,7 +233,7 @@ class Concert(object):
 
                 price_list = price.find_elements(
                     by=By.CLASS_NAME, value='bui-dm-sku-card-item')  # 选定票档
-                # print('可选票档数量为：{}'.format(len(price_list)))
+                print('可选票档数量为：{}'.format(len(price_list)))
                 for i in self.price:
                     if i > len(price_list):
                         i = len(price_list)
@@ -247,6 +247,7 @@ class Concert(object):
                         break
 
                 for i in toBeClicks:
+                    # TODO 票价档次选择
                     i.click()
                     sleep(0.1)
 
@@ -370,6 +371,7 @@ if __name__ == '__main__':
             con.choose_ticket()
             con.check_order()
         except Exception as e:
+            sleep(600)
             con.driver.get(con.target_url)
             print(e)
             continue
